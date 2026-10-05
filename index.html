@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Debt Decoder | Interactive Experience</title>
+    <meta name="description" content="An interactive journey exploring the physiological and cognitive impact of sleep deprivation. Discover how sleep debt affects your body and mind.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <audio id="bg-audio" loop>
+        <source src="https://www.orangefreesounds.com/wp-content/uploads/2018/07/Night-ambience-sound.mp3" type="audio/mpeg">
+    </audio>
+    <div class="glow-orb" id="orb-1"></div>
+    <div class="glow-orb" id="orb-2" style="top: 40%; left: 60%; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);"></div>
+
+    <button class="audio-toggle" id="audio-toggle">
+        <span id="audio-icon">🔇</span>
+        <span id="audio-text">Unmute Soundscape</span>
+    </button>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="visible">
+            <h1 class="hero-title">Sleep Debt<br>Decoder</h1>
+            <p class="hero-sub">What happens to your mind and body when you stop giving them the rest they deserve?</p>
+            <div class="scroll-indicator">
+                <span>Scroll to Begin</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+            </div>
+        </section>
+
+        <!-- Input Section -->
+        <section id="input-section">
+            <div class="content-card">
+                <span class="stage-label">Step 1: Baseline</span>
+                <h2 class="stage-title">How much sleep do you usually get?</h2>
+                <div class="input-grid">
+                    <div class="option-card" data-hours="8">
+                        <h3>8 Hours</h3>
+                        <p>Optimal Rest</p>
+                    </div>
+                    <div class="option-card" data-hours="7">
+                        <h3>6–7 Hours</h3>
+                        <p>Moderate Debt</p>
+                    </div>
+                    <div class="option-card" data-hours="5">
+                        <h3>5–6 Hours</h3>
+                        <p>Significant Loss</p>
+                    </div>
+                    <div class="option-card" data-hours="4">
+                        <h3>< 5 Hours</h3>
+                        <p>Chronic Deprivation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 1: 24 Hours -->
+        <section id="stage-1" data-stage="1">
+            <div class="content-card">
+                <span class="stage-label">After 1 Night</span>
+                <h2 class="stage-title">The Fog Sets In</h2>
+                <p class="stage-desc">Missing just one night of sleep is comparable to having a blood alcohol level of 0.10%. Your brain begins to struggle with basic coordination.</p>
+                <div class="key-insight">
+                    Reaction times slow by up to 50%, making daily tasks feel like moving through molasses.
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 2: Few Days -->
+        <section id="stage-2" data-stage="2">
+            <div class="content-card">
+                <span class="stage-label">After 3 Days</span>
+                <h2 class="stage-title">Emotional Instability</h2>
+                <p class="stage-desc">The amygdala—the brain's emotional center—becomes 60% more reactive. You lose the ability to regulate stress and irritation.</p>
+                <div class="key-insight">
+                    Memory consolidation fails. Your brain stops moving information from short-term to long-term storage.
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 3: 1 Week -->
+        <section id="stage-3" data-stage="3">
+            <div class="content-card">
+                <span class="stage-label">After 1 Week</span>
+                <h2 class="stage-title">Systemic Breakdown</h2>
+                <p class="stage-desc">Your immune system's T-cell production drops. Stress hormones like cortisol spike, keeping your body in a constant state of "fight or flight".</p>
+                <div class="key-insight">
+                    Inflammation levels rise across the body, increasing the risk of cardiovascular strain.
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 4: Chronic -->
+        <section id="stage-4" data-stage="4">
+            <div class="content-card">
+                <span class="stage-label">Long-Term Impact</span>
+                <h2 class="stage-title" id="final-glitch">Cognitive Decline</h2>
+                <p class="stage-desc">Chronic sleep debt is linked to neurodegenerative risks. Your brain's "glymphatic" cleaning system cannot clear toxic proteins effectively.</p>
+                <div class="key-insight">
+                    Burnout isn't just a feeling; it's a physiological state where your systems begin to prioritize survival over function.
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Section -->
+        <section id="conclusion">
+            <h2 class="final-title">Your body keeps score.</h2>
+            <p class="hero-sub" style="margin-bottom: 3rem;">Sleep is not a luxury. It is a biological necessity. You cannot "catch up" on debt—you can only choose to invest in your future self.</p>
+            <button class="cta-button" id="reset-btn">Reset Experience</button>
+            <p style="margin-top: 2rem; font-size: 0.8rem; color: var(--text-secondary);">Premium Weboreel Experience &copy; 2026</p>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>

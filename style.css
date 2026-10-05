@@ -1,0 +1,273 @@
+/* Sleep Debt Decoder - Core Design System */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+    --bg-calm: #05070a;
+    --bg-stress: #1a0505;
+    --accent-indigo: #6366f1;
+    --accent-red: #ef4444;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --transition-slow: all 0.5s ease;
+    --transition-fast: all 0.2s ease;
+    --img-hero: url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&q=80&w=2000');
+    --img-stress: url('https://images.unsplash.com/photo-1532974297617-c0f05fe48bff?auto=format&fit=crop&q=80&w=2000');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-calm);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+    transition: background-color 1s ease;
+}
+
+h1, h2, h3 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+/* Background Effects */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.glow-orb {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    pointer-events: none;
+    transition: var(--transition-slow);
+}
+
+/* Layout */
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition-slow);
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero Section */
+#hero {
+    text-align: center;
+    background-image: linear-gradient(to bottom, rgba(5, 7, 10, 0.8), rgba(5, 7, 10, 1)), var(--img-hero);
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.hero-sub {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-10px);}
+    60% {transform: translateY(-5px);}
+}
+
+/* Input Cards */
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 500px;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.option-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition-fast);
+    backdrop-filter: blur(10px);
+}
+
+.option-card:hover {
+    border-color: var(--accent-indigo);
+    background: rgba(99, 102, 241, 0.05);
+    transform: translateY(-5px);
+}
+
+.option-card.selected {
+    border-color: var(--accent-indigo);
+    background: rgba(99, 102, 241, 0.2);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+/* Content Sections */
+.content-card {
+    max-width: 800px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 3rem;
+    border-radius: 2rem;
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+}
+
+.stage-label {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: var(--accent-indigo);
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.stage-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.stage-desc {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.key-insight {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--accent-indigo);
+    font-weight: 500;
+}
+
+/* Visual Effects per Stage */
+body.stage-1 { background-color: #0a0e1a; }
+body.stage-2 { background-color: #0f172a; filter: contrast(1.1); }
+body.stage-3 { 
+    background-color: #1a1a2e; 
+    filter: contrast(1.2) brightness(0.9); 
+}
+body.stage-4 { 
+    background-color: #2d0b0b; 
+    background-image: linear-gradient(to bottom, rgba(45, 11, 11, 0.9), rgba(45, 11, 11, 0.95)), var(--img-stress);
+    background-size: cover;
+    background-attachment: fixed;
+    filter: contrast(1.4) brightness(0.8); 
+}
+
+.glitch-text {
+    /* Animation removed */
+}
+
+/* Audio Control */
+.audio-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 100;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Final Section */
+.final-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    background: var(--accent-indigo);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-fast);
+    border: none;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .content-card {
+        padding: 2rem;
+    }
+    
+    .stage-title {
+        font-size: 1.75rem;
+    }
+}
